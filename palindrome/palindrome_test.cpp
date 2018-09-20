@@ -2,12 +2,19 @@
 
 #include "palindrome.h"
 
+// Both is_palindrome and not_palindrome are 'storing' large bits of data with no variable association, and therefore when it is finished all the bytes are lost.
+// To fix this, we assign it to a variable, make our assertion about that data, and finally when we are done free it.
+
 void is_palindrome(char const *str) {
-  ASSERT_STREQ(palindrome(str), "Yes");
+  char *palin = palindrome(str);
+  ASSERT_STREQ(palin, "Yes");
+  free(palin);
 }
 
 void not_palindrome(char const *str) {
-  ASSERT_STREQ(palindrome(str), "No");
+  char *palin = palindrome(str);
+  ASSERT_STREQ(palin, "No");
+  free(palin);
 }
 
 TEST(Palindrome, HandlesEmptyString) {

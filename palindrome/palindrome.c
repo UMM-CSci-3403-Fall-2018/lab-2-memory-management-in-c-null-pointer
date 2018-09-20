@@ -32,8 +32,11 @@ char *palindrome(char const *str) {
     }
     ++i;
   }
+  
+  /*rev is no longer referenced so we can free it. */
+  free(rev);
 
-  if (result) {
+   if (result) {
     answer = (char*) calloc(4, sizeof(char));
     answer[0] = 'Y';
     answer[1] = 'e';
@@ -45,6 +48,6 @@ char *palindrome(char const *str) {
     answer[1] = 'o';
     answer[2] = '\0';
   }
-
+  
   return answer;
 }
