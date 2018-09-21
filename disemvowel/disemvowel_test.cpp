@@ -5,7 +5,9 @@
 TEST(Disemvowel, HandleEmptyString) {
   char* noVowels = disemvowel((char*) "");
   ASSERT_STREQ("", noVowels);
-  free(noVowels);
+  // We are NOT freeing anything here specifically because of ""
+  // Same as in the pre-lab, we cannot free something that has nothing used.
+  // The malloc/calloc will return a NULL pointer if the size is 0.
 }
 
 TEST(Disemvowel, HandleNoVowels) {

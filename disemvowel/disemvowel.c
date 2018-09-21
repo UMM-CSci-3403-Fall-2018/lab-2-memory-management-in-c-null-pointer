@@ -44,31 +44,71 @@ int countVowel(char *str)
   return count;
 }
 
-char *disemvowel(char *str) {
-  
-  int old_string_length = strlen(str);
-  int old_string_vowels = countVowel(str);
-  int new_string_length = old_string_length - old_string_vowels;
-  if(new_string_size <= 0)
-  {
-    int resultIndex = 0;
-    char *result = (char*) calloc(new_string_length, sizeof(char));
-    for(unsigned int i = 0; i < old_string_length; i++)
-    {
-      if(!isVowel(str[i]))
-      {
-        result[resultIndex] = str[i];
-        resultIndex++;
-      }
-    }
-    //There needs to be a check for blanks not incrementing resultIndex on blanks
+char *disemvowel(char *str)
+{
+	//COMPILING SHORTCUT
+	// g++ -Wall -g -o disemvowel_test disemvowel_test.cpp disemvowel.c -lgtest
+	// g++ -Wall -g -o main main.c disemvowel.c
+	// valgrind --leak-check=full ./disemvowel_test
+	// valgrind --leak-check=full ./main < sample_input.txt
 
-  }
-  else
-  {
-    char *result = (char*) calloc(1, sizeof(char));
-    result[0] = '\0';
-  }
 
-  return result;
+	//Store length of string
+	int old_string_length = strlen(str);
+	
+	//Test if string contains content
+	if(old_string_length > 0)
+	{
+		//Determine amount of memory to allocate
+		int old_string_vowels = countVowel(str);
+		int new_string_length = old_string_length - old_string_vowels;
+		char *result = (char*) calloc(new_string_length + 1, sizeof(char)); //Null terminator is NOT included in the size of a string.
+
+		//Create pointer so we can 'append' letters to the end of our string
+		int resultIndex = 0;
+
+		//Start looking through all the letters of the old string to determine what characters we keep for the new string
+		for (int i = 0; i < old_string_length; i++)
+		{
+			//Check to see if it is NOT a vowel
+			if(!isVowel(str[i]))
+			{
+				//If it isn't, add it to the next spot in our string
+				result[resultIndex] = str[i];
+				resultIndex++;
+			}
+		}
+		
+		//All characters added, now finally add null terminator
+		result[new_string_length] = '\0';
+		return result; 
+	}
+
+	//String is empty, do nothing
+	else
+	{
+		
+		return str;
+	}
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
